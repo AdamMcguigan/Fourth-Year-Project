@@ -7,6 +7,7 @@ public class GameMenuManager : MonoBehaviour
 {
     public GameObject menu;
     public InputActionProperty showButton;
+
     public Transform head;
     public float spawnDistance = 2;
 
