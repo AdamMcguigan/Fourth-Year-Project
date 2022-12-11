@@ -1,21 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class skeletonScript : MonoBehaviour
 {
-    public GameObject Player;
+    private GameObject Player;
     Rigidbody rb;
     private float withinRange = 6;
     private float movementSpeed = 3.0f;
 
     bool moveTowards = false;
     bool inRadius = false;
+
     // Start is called before the first frame update
     void Start()
     {
-        rb = GetComponent<Rigidbody>(); 
+        rb = GetComponent<Rigidbody>();
+        Player = GameObject.FindGameObjectWithTag("Player");
     }
 
     // Update is called once per frame
