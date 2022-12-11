@@ -18,15 +18,13 @@ public class IsCoveredNode : Node
         //ask if the hit object is our target, if not then that then theres something separating the ai
         //from the player which returns Success, otherwise return failure
         RaycastHit hit;
-
-        if(Physics.Raycast(origin.position, target.position - origin.position, out hit))
+        if (Physics.Raycast(origin.position, target.position - origin.position, out hit))
         {
-            if(hit.collider.transform != target)
+            if (hit.collider.transform != target)
             {
                 return NodeState.SUCCESS;
             }
         }
-
         return NodeState.FAILURE;
     }
 }

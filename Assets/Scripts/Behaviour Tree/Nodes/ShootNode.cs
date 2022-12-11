@@ -30,4 +30,5 @@ public class ShootNode : Node
         ai.transform.rotation = rotation;
         return NodeState.RUNNING;
     }
+
 }

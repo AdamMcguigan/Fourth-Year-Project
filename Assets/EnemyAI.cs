@@ -13,8 +13,11 @@ public class EnemyAI : MonoBehaviour
     [SerializeField] private float chasingRange;
     [SerializeField] private float shootingRange;
 
+
     [SerializeField] private Transform playerTransform;
-    [SerializeField] private Cover[] availableCovers;
+    [SerializeField] private Cover[] avaliableCovers;
+
+
 
     private Material material;
     private Transform bestCoverSpot;
@@ -23,28 +26,27 @@ public class EnemyAI : MonoBehaviour
     private Node topNode;
 
     private float _currentHealth;
-
     public float currentHealth
     {
         get { return _currentHealth; }
         set { _currentHealth = Mathf.Clamp(value, 0, startingHealth); }
     }
 
-    private void Start()
-    {
-        _currentHealth = startingHealth;
-        ConstructBehaviorTree();
-    }
-
     private void Awake()
     {
         agent = GetComponent<NavMeshAgent>();
-        material = GetComponentInChildren<MeshRenderer>().material;
+        material = GetComponent<SkinnedMeshRenderer>().material;
     }
 
-    private void ConstructBehaviorTree()
+    private void Start()
     {
-        IsCoverAvailable coverAvailable = new IsCoverAvailable(availableCovers, playerTransform, this);
+        _currentHealth = startingHealth;
+        ConstructBehahaviourTree();
+    }
+
+    private void ConstructBehahaviourTree()
+    {
+        IsCovereAvaliableNode coverAvaliableNode = new IsCovereAvaliableNode(avaliableCovers, playerTransform, this);
         GoToCoverNode goToCoverNode = new GoToCoverNode(agent, this);
         HealthNode healthNode = new HealthNode(this, lowHealthThreshold);
         IsCoveredNode isCoveredNode = new IsCoveredNode(playerTransform, transform);
@@ -62,18 +64,25 @@ public class EnemyAI : MonoBehaviour
         Sequence mainCoverSequence = new Sequence(new List<Node> { healthNode, tryToTakeCoverSelector });
 
         topNode = new Selector(new List<Node> { mainCoverSequence, shootSequence, chaseSequence });
+
+
     }
 
-    public void Update()
+    private void Update()
     {
         topNode.Evaluate();
-        if(topNode.nodeState == NodeState.FAILURE)
+        if (topNode.nodeState == NodeState.FAILURE)
         {
             SetColor(Color.red);
-
+            agent.isStopped = true;
         }
-
         currentHealth += Time.deltaTime * healthRestoreRate;
+    }
+
+
+    public void TakeDamage(float damage)
+    {
+        currentHealth -= damage;
     }
 
     public void SetColor(Color color)
@@ -90,4 +99,11 @@ public class EnemyAI : MonoBehaviour
     {
         return bestCoverSpot;
     }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(gameObject.transform.position, chasingRange);
+    }
+
 }

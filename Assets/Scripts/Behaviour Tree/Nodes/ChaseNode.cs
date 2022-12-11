@@ -7,31 +7,31 @@ public class ChaseNode : Node
 {
     private Transform target;
     private NavMeshAgent agent;
-    private EnemyAI enemyAI;
+    private EnemyAI ai;
 
-    public ChaseNode(Transform target, NavMeshAgent agent, EnemyAI enemyAI)
+    public ChaseNode(Transform target, NavMeshAgent agent, EnemyAI ai)
     {
         this.target = target;
         this.agent = agent;
-        this.enemyAI = enemyAI;
+        this.ai = ai;
     }
 
     public override NodeState Evaluate()
     {
-        enemyAI.SetColor(Color.yellow);
+        ai.SetColor(Color.yellow);
         float distance = Vector3.Distance(target.position, agent.transform.position);
-        if(distance > 0.2f)
+        if (distance > 0.2f)
         {
             agent.isStopped = false;
             agent.SetDestination(target.position);
             return NodeState.RUNNING;
         }
-
         else
         {
             agent.isStopped = true;
             return NodeState.SUCCESS;
         }
     }
-   
+
+
 }
