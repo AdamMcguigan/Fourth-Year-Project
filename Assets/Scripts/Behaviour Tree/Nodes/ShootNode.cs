@@ -6,18 +6,28 @@ using UnityEngine.AI;
 public class ShootNode : Node
 {
     private NavMeshAgent agent;
-    private EnemyAI enemyAI;
+    private EnemyAI ai;
+    private Transform target;
 
-    public ShootNode(NavMeshAgent agent, EnemyAI enemyAI)
+    private Vector3 currentVelocity;
+    private float smoothDamp;
+
+    public ShootNode(NavMeshAgent agent, EnemyAI ai, Transform target)
     {
         this.agent = agent;
-        this.enemyAI = enemyAI;
+        this.ai = ai;
+        this.target = target;
+        smoothDamp = 1f;
     }
 
     public override NodeState Evaluate()
     {
         agent.isStopped = true;
-        enemyAI.SetColor(Color.green);
+        ai.SetColor(Color.green);
+        Vector3 direction = target.position - ai.transform.position;
+        Vector3 currentDirection = Vector3.SmoothDamp(ai.transform.forward, direction, ref currentVelocity, smoothDamp);
+        Quaternion rotation = Quaternion.LookRotation(currentDirection, Vector3.up);
+        ai.transform.rotation = rotation;
         return NodeState.RUNNING;
     }
 }

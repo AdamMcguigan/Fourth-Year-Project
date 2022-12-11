@@ -9,10 +9,11 @@ public class ChaseNode : Node
     private NavMeshAgent agent;
     private EnemyAI enemyAI;
 
-    public ChaseNode(Transform target)
+    public ChaseNode(Transform target, NavMeshAgent agent, EnemyAI enemyAI)
     {
         this.target = target;
         this.agent = agent;
+        this.enemyAI = enemyAI;
     }
 
     public override NodeState Evaluate()
