@@ -25,7 +25,7 @@ public class EnemyAI : MonoBehaviour
 
     private Node topNode;
 
-    private float _currentHealth;
+    public float _currentHealth;
     public float currentHealth
     {
         get { return _currentHealth; }
@@ -77,7 +77,14 @@ public class EnemyAI : MonoBehaviour
             agent.isStopped = true;
         }
         currentHealth += Time.deltaTime * healthRestoreRate;
+
+        if(Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            TakeDamage(60);
+            Debug.Log("Attacking" + currentHealth);
+        }
     }
+
 
 
     public void TakeDamage(float damage)
