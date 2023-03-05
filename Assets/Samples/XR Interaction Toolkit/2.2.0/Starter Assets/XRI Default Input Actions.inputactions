@@ -788,6 +788,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "Menu Right",
+                    "type": "Button",
+                    "id": "29037329-bccc-4ab7-b16a-3908d0210ffb",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -876,6 +885,17 @@
                     "processors": "ScaleVector2(x=0),StickDeadzone",
                     "groups": "Generic XR Controller",
                     "action": "Translate Anchor",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a284863b-05f3-4162-a4a9-af5f47e3887a",
+                    "path": "<XRController>{RightHand}/joystickClicked",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Menu Right",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
