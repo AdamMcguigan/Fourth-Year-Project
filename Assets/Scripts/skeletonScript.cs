@@ -8,7 +8,7 @@ public class skeletonScript : MonoBehaviour
 {
     private GameObject Player;
     Rigidbody rb;
-    private float withinRange = 6;
+    private float withinRange = 2;
     private float movementSpeed = 3.0f;
 
     bool moveTowards = false;
