@@ -195,7 +195,7 @@ public class MapCreator : MonoBehaviour
                 {
 
                     //NORMAL TREE
-                    if (Random.Range(1, 8) == 1)             // Chance to generate
+                    if (Random.Range(1, 8) == 1)             // Chance to generate & change the random range to add more trees to the scene.
                     {
                         GameObject objectToSpawn = objects[0];      //NORMAL TREE
                         var spawnAboveTerrainBy = noiseHeight * 2;
