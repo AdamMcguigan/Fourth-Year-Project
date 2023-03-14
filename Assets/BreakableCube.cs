@@ -43,7 +43,7 @@ public class BreakableCube : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.CompareTag("cube"))
+        if(collision.gameObject.CompareTag("cube") || collision.gameObject.CompareTag("Bullet"))
         {
             TakeDamage(50);
         }
