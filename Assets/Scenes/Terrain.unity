@@ -788,8 +788,8 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 8
     m_NumAlphaKeys: 2
-  xSize: 200
-  zSize: 200
+  xSize: 100
+  zSize: 100
   scale: 80
   octaves: 5
   lacunarity: 1
