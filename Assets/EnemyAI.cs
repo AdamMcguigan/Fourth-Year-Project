@@ -16,8 +16,9 @@ public class EnemyAI : MonoBehaviour
 
     [SerializeField] private Transform playerTransform;
     [SerializeField] private Cover[] avaliableCovers;
+   
 
-
+    public bool isDeadBear = false;
 
     private Material material;
     private Transform bestCoverSpot;
@@ -83,8 +84,9 @@ public class EnemyAI : MonoBehaviour
             TakeDamage(60);
             Debug.Log("Attacking" + currentHealth);
         }
-    }
 
+       
+    }
 
 
     public void TakeDamage(float damage)

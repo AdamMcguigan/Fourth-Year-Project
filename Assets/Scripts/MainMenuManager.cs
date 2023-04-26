@@ -8,6 +8,12 @@ public class MainMenuManager : MonoBehaviour
     public void StartGame()               //run start game void which should have loading game scene
     {
         Debug.Log("startGame");
+        SceneManager.LoadScene("Main");
+    }
+
+    public void StartSanbox()               //run start game void which should have loading game scene
+    {
+        Debug.Log("startSand");
         SceneManager.LoadScene("Test Scene");
     }
 

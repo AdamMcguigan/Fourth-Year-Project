@@ -11,6 +11,9 @@ TagManager:
   - Enemy
   - Wall
   - Terrain
+  - Health
+  - Key
+  - Bus
   layers:
   - Default
   - TransparentFX

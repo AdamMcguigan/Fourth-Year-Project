@@ -35,6 +35,17 @@ public class AIManager : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void Update()
+    {
+        for (int i = 0; i < Units.Count; i++)
+        {
+            if (Vector3.Distance(Units[i].transform.position, Target.position) <= 5)
+            {
+                makeAgentsCircleTarget();
+            }
+        }
+    }
+
     private void OnGUI()
     {
         if(GUI.Button(new Rect(20,20,200,50), "Move To Target"))

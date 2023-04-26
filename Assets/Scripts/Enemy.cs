@@ -8,6 +8,7 @@ public class Enemy : MonoBehaviour
     float m_maxHealth = 100;
     [SerializeField]
     private ProgressBar healthBar;
+    //public GameObject healthP;
 
     // Start is called before the first frame update
     void Start()
@@ -28,8 +29,11 @@ public class Enemy : MonoBehaviour
 
         if(m_health <= 0)
         {
+            //Instantiate(healthP, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
             Destroy(healthBar.gameObject);
+
+           
         }
     }
 

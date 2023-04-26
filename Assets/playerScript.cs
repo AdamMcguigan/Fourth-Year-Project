@@ -17,7 +17,7 @@ public class playerScript : MonoBehaviour
     private float HistoricalPositionInterval = 0.1f;
 
     public float m_health;
-    float m_maxHealth = 10;
+    float m_maxHealth = 100;
     [SerializeField]
     private ProgressBar healthBar;
 
@@ -27,6 +27,14 @@ public class playerScript : MonoBehaviour
     public GameObject deathBox;
     private bool playerDead = false;
     private float targetTime = 5.0f;
+
+    [Header("Win Vars")]
+    public bool keyCollected = false;
+    public GameObject panel2;
+    public TextMeshProUGUI winText;
+    public GameObject Bus;
+    private float winTime = 10.0f;
+
 
     public Vector3 AverageVelocity
     {
@@ -78,6 +86,19 @@ public class playerScript : MonoBehaviour
                 SceneManager.LoadScene("Test Scene");
             }
         }
+
+        if(keyCollected == true)
+        {
+            gameObject.transform.position = Bus.gameObject.transform.position;
+            panel2.gameObject.SetActive(true);
+            winText.gameObject.SetActive(true);
+            winTime -= Time.deltaTime;
+
+            if (winTime <= 0.0f)
+            {
+                SceneManager.LoadScene("Main Menu");
+            }
+        }
     }
 
  
@@ -110,6 +131,24 @@ public class playerScript : MonoBehaviour
         if (collision.gameObject.tag == "Enemy")
         {
             onTakeDamage(10);
+        }
+
+        if(collision.gameObject.CompareTag("Health"))
+        {
+            Debug.Log("Colliding");
+            m_health += 10;
+            Destroy(collision.gameObject);
+        }
+
+        if(collision.gameObject.tag == "Bus")
+        {
+            Debug.Log("player on bus");
+            keyCollected = true;
+        }
+
+        if (collision.gameObject.tag == "Keys")
+        {
+            Debug.Log("player picked up keys");
         }
     }
 
