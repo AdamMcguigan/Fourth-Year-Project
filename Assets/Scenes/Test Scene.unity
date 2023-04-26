@@ -20989,6 +20989,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HistoricalPositionDuration: 1
   HistoricalPositionInterval: 0.1
+  m_health: 0
+  healthBar: {fileID: 2134148801}
 --- !u!64 &6432244416184523182
 MeshCollider:
   m_ObjectHideFlags: 0

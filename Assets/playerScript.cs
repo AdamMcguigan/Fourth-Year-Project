@@ -14,6 +14,11 @@ public class playerScript : MonoBehaviour
     [Range(0.001f, 1f)]
     private float HistoricalPositionInterval = 0.1f;
 
+    public float m_health;
+    float m_maxHealth = 100;
+    [SerializeField]
+    private ProgressBar healthBar;
+
     public Vector3 AverageVelocity
     {
         get
@@ -51,6 +56,45 @@ public class playerScript : MonoBehaviour
 
             HistoricalVelocities.Enqueue(Controller.velocity);
             LastPositionTime = Time.time;
+        }
+    }
+
+ 
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        m_health = m_maxHealth;
+    }
+
+    // Update is called once per frame
+
+    public void onTakeDamage(int t_damage)
+    {
+        m_health -= t_damage;
+        healthBar.SetProgress(m_health / m_maxHealth, 3);
+
+        if (m_health <= 0)
+        {
+            Destroy(gameObject);
+            Destroy(healthBar.gameObject);
+        }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            onTakeDamage(10);
+        }
+    }
+
+    public void SetupHealthBar(Canvas canvas, Camera camera)
+    {
+        healthBar.transform.SetParent(canvas.transform);
+        if (healthBar.TryGetComponent<FaceCamera>(out FaceCamera faceCamera))
+        {
+            faceCamera.Camera = camera;
         }
     }
 }
