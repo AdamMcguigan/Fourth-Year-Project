@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.SceneManagement;
 
 [DisallowMultipleComponent]
 [RequireComponent(typeof(CharacterController))]
@@ -15,9 +17,16 @@ public class playerScript : MonoBehaviour
     private float HistoricalPositionInterval = 0.1f;
 
     public float m_health;
-    float m_maxHealth = 100;
+    float m_maxHealth = 10;
     [SerializeField]
     private ProgressBar healthBar;
+
+    [Header("Death Related Vars")]
+    public GameObject panel;
+    public TextMeshProUGUI deathText;
+    public GameObject deathBox;
+    private bool playerDead = false;
+    private float targetTime = 5.0f;
 
     public Vector3 AverageVelocity
     {
@@ -57,6 +66,18 @@ public class playerScript : MonoBehaviour
             HistoricalVelocities.Enqueue(Controller.velocity);
             LastPositionTime = Time.time;
         }
+
+        if(playerDead == true)
+        {
+            gameObject.transform.position = deathBox.gameObject.transform.position;
+            panel.gameObject.SetActive(true);
+            deathText.gameObject.SetActive(true);
+            targetTime -= Time.deltaTime;
+            if(targetTime <= 0.0f)
+            {
+                SceneManager.LoadScene("Test Scene");
+            }
+        }
     }
 
  
@@ -65,6 +86,9 @@ public class playerScript : MonoBehaviour
     void Start()
     {
         m_health = m_maxHealth;
+        panel.gameObject.SetActive(false);
+        deathText.gameObject.SetActive(false);
+        playerDead = false;
     }
 
     // Update is called once per frame
@@ -76,7 +100,7 @@ public class playerScript : MonoBehaviour
 
         if (m_health <= 0)
         {
-            Destroy(gameObject);
+            playerDead = true;
             Destroy(healthBar.gameObject);
         }
     }
